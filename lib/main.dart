@@ -1,11 +1,10 @@
 // @dart=2.9
+import 'package:chat/chat_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 void main() {
   runApp(const MyApp());
-  Firestore.instance.collection("col").document("doc").setData(
-      {"texto": "teste"});
 }
 
 class MyApp extends StatelessWidget {
@@ -14,11 +13,15 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      debugShowCheckedModeBanner: false,
+      title: 'Chat.io',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.cyan,
+        iconTheme: const IconThemeData(
+          color: Colors.cyan
+        ),
       ),
-      home: Container(),
+      home: const ChatScreen(),
     );
   }
 }
