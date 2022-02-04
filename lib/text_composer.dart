@@ -32,33 +32,35 @@ class _TextComposerState extends State<TextComposer> {
         children: [
           IconButton(
               onPressed: () async {
-                final File imgFile = await ImagePicker.pickImage(source: ImageSource.camera);
-                if(imgFile == null) return;
+                final File imgFile =
+                    await ImagePicker.pickImage(source: ImageSource.camera);
+                if (imgFile == null) return;
                 widget.sendMessage(imgFile: imgFile);
               },
-              icon: const Icon(Icons.photo_camera)
-          ),
+              icon: const Icon(Icons.photo_camera)),
           Expanded(
               child: TextField(
-                controller: _controller,
-                decoration: const InputDecoration.collapsed(hintText: "Enviar uma mensagem"),
-                onChanged: (text) {
-                  setState(() {
-                    _isComposing = text.isNotEmpty;
-                  });
-                },
-                onSubmitted: (text) {
-                  widget.sendMessage(text: text);
-                  _reset();
-                },
-              )
-          ),
+            controller: _controller,
+            decoration: const InputDecoration.collapsed(
+                hintText: "Enviar uma mensagem"),
+            onChanged: (text) {
+              setState(() {
+                _isComposing = text.isNotEmpty;
+              });
+            },
+            onSubmitted: (text) {
+              widget.sendMessage(text: text);
+              _reset();
+            },
+          )),
           IconButton(
-              onPressed: _isComposing ? (){
-                widget.sendMessage(text: _controller.text);
-                _reset();
-              } : null,
-              icon: const Icon(Icons.send),
+            onPressed: _isComposing
+                ? () {
+                    widget.sendMessage(text: _controller.text);
+                    _reset();
+                  }
+                : null,
+            icon: const Icon(Icons.send),
           )
         ],
       ),
