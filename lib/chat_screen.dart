@@ -7,6 +7,8 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
+import 'chat_message.dart';
+
 class ChatScreen extends StatefulWidget {
   const ChatScreen({Key? key}) : super(key: key);
 
@@ -74,9 +76,9 @@ class _ChatScreenState extends State<ChatScreen> {
       data["imgUrl"] = url;
     }
 
-    if (text != null) data["text"] = text;
+    if (text != null) data['text'] = text;
 
-    Firestore.instance.collection("messages").add(data);
+    Firestore.instance.collection('messages').add(data);
   }
 
   @override
@@ -84,7 +86,7 @@ class _ChatScreenState extends State<ChatScreen> {
     return Scaffold(
         key: _scaffoldKey,
         appBar: AppBar(
-          title: const Text('Conversa'),
+          title: const Text("Conversa"),
           titleTextStyle: const TextStyle(color: Colors.white, fontSize: 18),
           elevation: 0,
         ),
@@ -92,7 +94,7 @@ class _ChatScreenState extends State<ChatScreen> {
           children: [
             Expanded(
                 child: StreamBuilder<QuerySnapshot>(
-              stream: Firestore.instance.collection("messages").snapshots(),
+              stream: Firestore.instance.collection('messages').snapshots(),
               builder: (context, snapshot) {
                 switch (snapshot.connectionState) {
                   case ConnectionState.none:
@@ -107,9 +109,7 @@ class _ChatScreenState extends State<ChatScreen> {
                         itemCount: documents.length,
                         reverse: true,
                         itemBuilder: (context, index) {
-                          return ListTile(
-                            title: Text(documents[index].data["text"]),
-                          );
+                          return ChatMessage(documents[index].data, true);
                         });
                 }
               },
